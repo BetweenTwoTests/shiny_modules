@@ -1,0 +1,3 @@
+dashboardHeader(
+  title = "Shiny Modules"
+)
