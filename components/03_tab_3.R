@@ -152,36 +152,6 @@ list(
       )
     })
     
-    observeEvent(input$`tab-3-load-shiny-module`, {
-      source("modules/lag/lag.R")
-      packages_loaded(.packages())
-      show("tab-3-load-shiny-module-status")
-      
-      output$`tab-3-shiny-module-lag-ui` <- renderUI({
-        lagUI("tab-3-shiny-module-lag")
-      })
-      
-      callModule(
-        lagSERVER, "tab-3-shiny-module-lag"
-      )
-    })
-    
-    
-    # shiny-module ----
-    observeEvent(input$`tab-3-load-shiny-module`, {
-      source("modules/lag/lag.R")
-      packages_loaded(.packages())
-      show("tab-3-load-shiny-module-status")
-      
-      output$`tab-3-shiny-module-lag-ui` <- renderUI({
-        lagUI("tab-3-shiny-module-lag")
-      })
-      
-      callModule(
-        lagSERVER, "tab-3-shiny-module-lag"
-      )
-    })
-    
     # library(modules) dplyr ----
     output$`tab-3-modules-dplyr-lag-ui` <- renderUI({
       p('Click on button below "Load library(modules) using dplyr" to use this')
