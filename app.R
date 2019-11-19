@@ -4,6 +4,17 @@ shiny_component_tab_1 <- source("components/01_tab_1.R")$value
 shiny_component_tab_2 <- source("components/02_tab_2.R")$value
 shiny_component_tab_3 <- source("components/03_tab_3.R")$value
 
+use <- function(file) {
+  ## - custom definition of modules::use to circumvent base::library
+  ## - use with care
+  ## - still throws a warning, which is expected
+  e <- new.env(parent = baseenv())
+  e$library <- modules::import
+  modules::as.module(file, topEncl = e)
+}
+
+m <- use("modules/lag")
+
 shinyApp(
   # ................................. #
   # Shiny UI Component ----
