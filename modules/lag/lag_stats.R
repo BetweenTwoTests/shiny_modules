@@ -4,7 +4,6 @@
 
 library(shiny)
 
-
 #' Module function returning UI code
 lagUI <- function(id) {
   ns <- NS(id)
@@ -24,4 +23,9 @@ lagSERVER <- function(input, output, session) {
       )
     })
   })
+}
+
+# For testing
+lag_test <- function() {
+  lag(1:5)
 }

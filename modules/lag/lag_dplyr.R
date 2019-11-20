@@ -25,3 +25,8 @@ lagSERVER <- function(input, output, session) {
     })
   })
 }
+
+# For testing
+lag_test <- function() {
+  lag(1:5)
+}
