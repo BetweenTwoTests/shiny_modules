@@ -1,6 +1,9 @@
-# Modules for counting and displaying counts
+# Modules for calculating lag() using 'dplyr' package
+#
+# Follows library(modules) rules
 
-library(dplyr)
+modules::import(shiny)
+modules::import(dplyr)
 
 #' Module function returning UI code
 lagUI <- function(id) {

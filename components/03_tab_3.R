@@ -23,7 +23,21 @@ list(
             column(
               width = 4,
               h4("Example of using lag function from Shiny module 'lag'"),
-              uiOutput("tab-3-shiny-module-lag-ui")
+              tabsetPanel(
+                tabPanel(
+                  "Shiny modules 'stats'",
+                  p("Example of using library(stats) lag function from 'lag_stats.R'"),
+                  p("Desired output: stats::lag(1:5)"),
+                  uiOutput("tab-3-shiny-module-stats-lag-ui")
+                ),
+                tabPanel(
+                  "Shiny modules 'dplyr'",
+                  p("Example of using library(dplyr) lag funciton from 'lag_dplyr.R'"),
+                  p("Desired output: dplyr::lag(1:5)"),
+                  uiOutput("tab-3-shiny-module-dplyr-lag-ui")
+                )
+              )
+              
             )
           ),
           fluidRow(
@@ -41,20 +55,20 @@ list(
             ),
             column(
               width = 4,
-              
               tabsetPanel(
                 tabPanel(
-                  "stats_modules",
-                  h4("Example of using stats::lag function from library(modules) 'stats_lag_modules.R'"),
+                  "library(modules) stats",
+                  p("Example of using stats::lag function from library(modules) 'library_modules_lab_stats.R'"),
+                  p("Desired output: statslag(1:5)"),
                   uiOutput("tab-3-modules-stats-lag-ui")
                 ),
                 tabPanel(
-                  "dplyr_modules",
-                  h4("Example of using dplyr::lag function from library(modules) 'dplyr_lag_modules.R'"),
+                  "library(modules) dplyr",
+                  p("Example of using dplyr::lag function from library(modules) 'library_modules_lab_dplyr.R'"),
+                  p("Desired output: dplyr::lag(1:5)"),
                   uiOutput("tab-3-modules-dplyr-lag-ui")
                 )
               )
-              
             )
           )
         )
@@ -65,8 +79,13 @@ list(
           width = 12,
           column(
             width = 3, 
-            actionButton("tab-3-load-shiny-module", label = "Load Shiny module"),
-            hidden(p(id = "tab-3-load-shiny-module-status", "loaded module 'lag' using library(shiny)"))
+            actionButton("tab-3-load-shiny-module-stats", label = "Load Shiny module using stats"),
+            hidden(p(id = "tab-3-load-shiny-module-stats-status", "loaded Shiny module 'lag' using library(stats)"))
+          ),
+          column(
+            width = 3, 
+            actionButton("tab-3-load-shiny-module-dplyr", label = "Load Shiny module using dplyr"),
+            hidden(p(id = "tab-3-load-shiny-module-dplyr-status", "loaded Shiny module 'lag' using library(dplyr)"))
           ),
           column(
             width = 3,
@@ -137,38 +156,33 @@ list(
       )
     })
     
-    # shiny-module ----
-    observeEvent(input$`tab-3-load-shiny-module`, {
-      source("modules/lag/lag.R")
+    # shiny module stats ----
+    observeEvent(input$`tab-3-load-shiny-module-stats`, {
+      source("modules/lag/lag_stats.R")
       packages_loaded(.packages())
-      show("tab-3-load-shiny-module-status")
+      show("tab-3-load-shiny-module-stats-status")
       
-      output$`tab-3-shiny-module-lag-ui` <- renderUI({
-        lagUI("tab-3-shiny-module-lag")
+      output$`tab-3-shiny-module-stats-lag-ui` <- renderUI({
+        lagUI("tab-3-shiny-module-stats-lag")
       })
       
       callModule(
-        lagSERVER, "tab-3-shiny-module-lag"
+        lagSERVER, "tab-3-shiny-module-stats-lag"
       )
     })
     
-    # library(modules) dplyr ----
-    output$`tab-3-modules-dplyr-lag-ui` <- renderUI({
-      p('Click on button below "Load library(modules) using dplyr" to use this')
-    })
-    
-    observeEvent(input$`tab-3-load-modules-dplyr`, {
-      used_module <- modules::use("modules/lag/dplyr_lag_modules.R")
-      
+    # shiny module dplyr ----
+    observeEvent(input$`tab-3-load-shiny-module-dplyr`, {
+      source("modules/lag/lag_dplyr.R")
       packages_loaded(.packages())
-      show("tab-3-load-modules-dplyr-status")
+      show("tab-3-load-shiny-module-dplyr-status")
       
-      output$`tab-3-modules-dplyr-lag-ui` <- renderUI({
-        used_module$lagUI("tab-3-modules-dplyr-lag")
+      output$`tab-3-shiny-module-dplyr-lag-ui` <- renderUI({
+        lagUI("tab-3-shiny-module-dplyr-lag")
       })
       
       callModule(
-        used_module$lagSERVER, "tab-3-modules-dplyr-lag"
+        lagSERVER, "tab-3-shiny-module-dplyr-lag"
       )
     })
     
@@ -178,7 +192,7 @@ list(
     })
     
     observeEvent(input$`tab-3-load-modules-stats`, {
-      used_module <- modules::use("modules/lag/stats_lag_modules.R")
+      used_module <- modules::use("modules/lag/library_modules_lag_stats.R")
       
       packages_loaded(.packages())
       show("tab-3-load-modules-stats-status")
@@ -189,6 +203,26 @@ list(
       
       callModule(
         used_module$lagSERVER, "tab-3-modules-stats-lag"
+      )
+    })
+    
+    # library(modules) dplyr ----
+    output$`tab-3-modules-dplyr-lag-ui` <- renderUI({
+      p('Click on button below "Load library(modules) using dplyr" to use this')
+    })
+    
+    observeEvent(input$`tab-3-load-modules-dplyr`, {
+      used_module <- modules::use("modules/lag/library_modules_lag_dplyr.R")
+      
+      packages_loaded(.packages())
+      show("tab-3-load-modules-dplyr-status")
+      
+      output$`tab-3-modules-dplyr-lag-ui` <- renderUI({
+        used_module$lagUI("tab-3-modules-dplyr-lag")
+      })
+      
+      callModule(
+        used_module$lagSERVER, "tab-3-modules-dplyr-lag"
       )
     })
   }

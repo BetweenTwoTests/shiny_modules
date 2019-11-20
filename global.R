@@ -10,7 +10,7 @@ for (package in required_packages) {
     install.packages(package)
   }
 }
-rm(package)
+rm(package, required_packages)
 
 # Load Packages. The order of loading package is intentiontal. 
 library(modules)
