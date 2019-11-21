@@ -36,9 +36,13 @@ betweentwotests_use <- function(file) {
   e$file <- file
   
   modules::module({
-    # Load base & friends
+    # Load base's friends
+    modules::import("methods")
+    modules::import("datasets")
+    modules::import("utils")
+    modules::import("grDevices")
+    modules::import("graphics")
     modules::import("stats")
-    # ... rest omitted for demo purpose
     
     # mask base::library
     library <- modules::import
@@ -47,12 +51,36 @@ betweentwotests_use <- function(file) {
   },topEncl = e)
 }
 
-# Test
+#' Improved version of betweentwotests_use() by wahani
+modules_custom_use <- function(file) {
+  modules::amodule({
+    # Load base's friends
+    modules::import("methods")
+    modules::import("datasets")
+    modules::import("utils")
+    modules::import("grDevices")
+    modules::import("graphics")
+    modules::import("stats")
+    
+    # mask base::library
+    library <- modules::import
+    
+    base::source(file, local = environment())
+  })
+}
+
+# # Test
 # module_filename <- "modules/lag/lag_stats.R"
 # wahani_m <- wahani_use(module_filename)
 # wahani_m$lagUI("test")       # Doesn't work; shiny::NS functions not found
 # wahani_m$lag_test()          # Doesn't work; stats::lag function not found
-#
+# 
 # betweentwotests_m <- betweentwotests_use(module_filename)
 # betweentwotests_m$lagUI("test")
 # betweentwotests_m$lag_test()
+# 
+# modules_custom_use_m <- modules_custom_use(module_filename)
+# modules_custom_use_m$lagUI("test")
+# modules_custom_use_m$lag_test()
+
+
