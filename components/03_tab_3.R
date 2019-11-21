@@ -23,7 +23,7 @@ list(
             tabPanel(
               "stats",
               p("using 'library_modules_lab_stats.R'"),
-              p("Desired output: statslag(1:5)"),
+              p("Desired output: stats::lag(1:5)"),
               uiOutput("tab-3-modules-stats-lag-ui")
             ),
             tabPanel(
@@ -271,7 +271,7 @@ list(
     })
     
     observeEvent(input$`tab-3-load-mimick-modules-stats`, {
-      used_module <- betweentwotests_use("modules/lag/library_modules_lag_stats.R")
+      used_module <- betweentwotests_use("modules/lag/lag_stats.R")
       
       packages_attached(.packages())
       show("tab-3-load-mimick-modules-stats-status")
@@ -291,7 +291,7 @@ list(
     })
     
     observeEvent(input$`tab-3-load-mimick-modules-dplyr`, {
-      used_module <- betweentwotests_use("modules/lag/library_modules_lag_dplyr.R")
+      used_module <- betweentwotests_use("modules/lag/lag_dplyr.R")
       
       packages_attached(.packages())
       show("tab-3-load-mimick-modules-dplyr-status")
