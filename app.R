@@ -4,6 +4,7 @@ shiny_component_tab_1 <- source("components/01_tab_1.R")$value
 shiny_component_tab_2 <- source("components/02_tab_2.R")$value
 shiny_component_tab_3 <- source("components/03_tab_3.R")$value
 
+
 shinyApp(
   # ................................. #
   # Shiny UI Component ----
@@ -31,7 +32,7 @@ shinyApp(
     # Server logic for toc menuItem (03_tab_3.R)
     shiny_component_tab_3$server(input, output, session)
     
-    # To reset the lag example
+    # To reset the lag example on app refresh (session and restart)
     onSessionEnded(function() { 
       if ("dplyr" %in% .packages()) {
         detach(name = "package:dplyr", unload = TRUE)
@@ -41,6 +42,12 @@ shinyApp(
     onStop(function() { 
       if ("dplyr" %in% .packages()) {
         detach(name = "package:dplyr", unload = TRUE)
+      }
+      if(exists("lagUI")) {
+        rm(lagUI,envir = .GlobalEnv)
+      }
+      if(exists("lagSERVER")) {
+        rm(lagSERVER,envir = .GlobalEnv)
       }
     })
   }

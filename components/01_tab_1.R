@@ -26,7 +26,13 @@ list(
           ),
           p(
             "Loading Shiny module via library(modules) module prevents such error"
-          )
+          ),
+          p(
+            "'Mimick' referes to when libarry(modules) is used on R script that does not follow library(modules) syntax"
+          ),
+          hr(),
+          p("Please carefully read the buttont and message texts. Different use of the word 'module' can be very confusing!")
+          
         )
       )
     ),

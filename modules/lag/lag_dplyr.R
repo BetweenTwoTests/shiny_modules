@@ -1,5 +1,8 @@
-# Modules for counting and displaying counts
+# Modules for calculating lag() using 'dplyr' package
+#   without specifying which package
+# Does not follows library(modules) rules
 
+library(shiny)
 library(dplyr)
 
 #' Module function returning UI code
@@ -21,4 +24,9 @@ lagSERVER <- function(input, output, session) {
       )
     })
   })
+}
+
+# For testing
+lag_test <- function() {
+  lag(1:5)
 }

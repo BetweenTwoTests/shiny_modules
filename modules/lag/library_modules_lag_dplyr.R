@@ -1,5 +1,6 @@
-# Modules for counting and displaying counts
-# using library(modules)
+# Modules for calculating lag() using 'dplyr' package
+#
+# Follows library(modules) rules
 
 modules::import(shiny)
 modules::import(dplyr)
